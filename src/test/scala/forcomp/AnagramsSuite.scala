@@ -24,6 +24,9 @@ class AnagramsSuite extends AnyFunSuite  {
     assert(dictionaryByOccurrences.get(List(('a', 1), ('e', 1), ('t', 1))).map(_.toSet) === Some(Set("ate", "eat", "tea")))
   }
 
+  test("dictionaryByOccurrences.get: cat") {
+    assert(dictionaryByOccurrences.get(List(('a', 1), ('c', 1), ('t', 1))).map(_.toSet) === Some(Set("cat", "act")))
+  }
 
   test("word anagrams: married") {
     assert(wordAnagrams("married").toSet === Set("married", "admirer"))
