@@ -66,6 +66,31 @@ class AnagramsSuite extends AnyFunSuite  {
     assert(combinations(abba).toSet === abbacomb.toSet)
   }
 
+  test("combinations: abbac") {
+    val abbac = List(('a', 2), ('b', 2), ('c', 1))
+    val abbaccomb = List(
+      List(),
+      List(('a', 1)),
+      List(('a', 2)),
+      List(('b', 1)),
+      List(('a', 1), ('b', 1)),
+      List(('a', 1), ('b', 1), ('c', 1)),
+      List(('a', 2), ('b', 1)),
+      List(('a', 2), ('b', 1), ('c', 1)),
+      List(('b', 2)),
+      List(('a', 1), ('b', 2)),
+      List(('a', 2), ('b', 2)),
+      List(('a', 1), ('b', 2), ('c', 1)),
+      List(('a', 2), ('b', 2), ('c', 1)),
+      List(('c', 1)),
+      List(('a', 1), ('c', 1)),
+      List(('a', 2), ('c', 1)),
+      List(('b', 1), ('c', 1)),
+      List(('b', 2), ('c', 1))
+    )
+    assert(combinations(abbac).toSet === abbaccomb.toSet)
+  }
+
 
   test("sentence anagrams: []") {
     val sentence = List()
