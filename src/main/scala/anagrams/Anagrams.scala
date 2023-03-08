@@ -88,13 +88,13 @@ object Anagrams {
     val tot = occurrences.map(_._2).sum
 
     // add a pair to an existing combination
-    def add(counter: List[(Char, Int)], element: (Char, Int)) = {
+    def add(counter: Occurrences, element: (Char, Int)) = {
       val countMap = counter.toMap
       (countMap + (element._1 -> (countMap.getOrElse(element._1, 0) + element._2))).toList.sortBy(_._1)
     }
 
     // a recursive function to calculate all the combinations
-    def combinations(occurs: List[(Char,Int)], n: Int): List[List[(Char,Int)]] = {
+    def combinations(occurs: Occurrences, n: Int): List[Occurrences] = {
       if(n == 0) List(List())
       else if(occurs.isEmpty) List()
       else {
