@@ -85,9 +85,9 @@ object Anagrams {
    */
   def combinations(occurrences: Occurrences): List[Occurrences] = occurrences match {
     case Nil => List(List())
-    case (char, times) :: xs =>
+    case (char, times) :: rest =>
       for {
-        z <- combinations(xs)
+        z <- combinations(rest)
         n <- 0 to times
       } yield if (n == 0) z else (char, n) :: z
   }
