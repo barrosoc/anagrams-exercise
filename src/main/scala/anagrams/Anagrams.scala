@@ -83,35 +83,13 @@ object Anagrams {
    *  Note that the order of the occurrence list subsets does not matter -- the subsets
    *  in the example above could have been displayed in some other order.
    */
-  def combinations(occurrences: Occurrences): List[Occurrences] = {
-    // total number of coins
-    val tot = occurrences.map(_._2).sum
-
-    // add a pair to an existing combination
-    def add(counter: Occurrences, element: (Char, Int)) = {
-      val countMap = counter.toMap
-      (countMap + (element._1 -> (countMap.getOrElse(element._1, 0) + element._2))).toList.sortBy(_._1)
-    }
-
-    // a recursive function to calculate all the combinations
-    def combinations(occurs: Occurrences, n: Int): List[Occurrences] = {
-      if(n == 0) List(List())
-      else if(occurs.isEmpty) List()
-      else {
-        val firstElement = if(occurs.head._2 == 1) List() else List((occurs.head._1, 1))
-        // all the combinations if you take the first kind of coin
-        val headComb = combinations(firstElement ++ occurs.tail, n - 1)
-
-        // all the combinations if you don't take the first kind of coin
-        val tailComb = combinations(occurs.tail, n)
-
-        // add the first coin pair to head combination and concatenate it with tail combination
-        headComb.map(add(_, (occurs.head._1, 1))) ++ tailComb
-      }
-    }
-
-    // calculate the combinations for each amount separately
-    (0 to tot).toList.flatMap(combinations(occurrences, _))
+  def combinations(occurrences: Occurrences): List[Occurrences] = occurrences match {
+    case Nil => List(List())
+    case (char, times) :: xs =>
+      for {
+        z <- combinations(xs)
+        n <- 0 to times
+      } yield if (n == 0) z else (char, n) :: z
   }
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
