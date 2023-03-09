@@ -1,8 +1,5 @@
 package anagrams
 
-import anagrams.Anagrams.Occurrences
-
-
 object Anagrams {
 
   /** A word is simply a `String`. */
@@ -102,7 +99,18 @@ object Anagrams {
    *  Note: the resulting value is an occurrence - meaning it is sorted
    *  and has no zero-entries.
    */
-  def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  def subtract(x: Occurrences, y: Occurrences): Occurrences = x
+    .foldLeft(y)({ (aggregator, element) => element :: aggregator })
+    .groupBy(o => o._1)
+    .mapValues(_.reduce(subtraction))
+    .values
+    .toList
+    .filter(_._2 != 0)
+    .sortBy(_._1)
+
+  def subtraction(a: (Char, Int), b: (Char, Int)): (Char, Int) = {
+    (a._1, if (a._1 == b._1) a._2 - b._2 else a._2)
+  }
 
   /** Returns a list of all anagram sentences of the given sentence.
    *

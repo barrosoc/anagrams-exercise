@@ -45,6 +45,20 @@ class AnagramsSuite extends AnyFunSuite  {
     assert(subtract(lard, r) === lad)
   }
 
+  test("subtract: goofy - o") {
+    val lard = List(('f', 1), ('g', 1), ('o', 2), ('y', 1))
+    val r = List(('o', 1))
+    val lad = List(('f', 1), ('g', 1), ('o', 1), ('y', 1))
+    assert(subtract(lard, r) === lad)
+  }
+
+  test("subtract: goofy - oo") {
+    val lard = List(('f', 1), ('g', 1), ('o', 2), ('y', 1))
+    val r = List(('o', 2))
+    val lad = List(('f', 1), ('g', 1), ('y', 1))
+    assert(subtract(lard, r) === lad)
+  }
+
 
   test("combinations: []") {
     assert(combinations(Nil) === List(Nil))
